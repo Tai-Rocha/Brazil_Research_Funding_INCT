@@ -139,3 +139,12 @@ tm_shape(brasil_map_data) +
   tm_shape(brasil_map_data) +
   tm_dots(size = "Result", col = "red", border.col = NA, alpha = 0.5, shape = 21) +
   tm_layout(title = "Results by State", legend.title.size = 1.5, legend.text.size = 1.2)
+
+##### Test random
+
+tm_shape(brasil_map_data) +
+  tm_polygons("Result", palette = "Blues", style = "quantile", border.col = "black") +
+  tm_dots(size = "Result", col = "red", border.col = NA, alpha = 0.5, shape = 21) +
+  tm_layout(title = "Results by State", legend.title.size = 1.5, legend.text.size = 1.2)
+
+
