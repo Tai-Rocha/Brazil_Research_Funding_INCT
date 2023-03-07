@@ -100,10 +100,12 @@ ggplot(data, aes(x=Region, y=`N_papers`, fill=Gender)) +
 
 # 8 Works ok
 
+png(file="SEX.png",
+    width=12, height=10, units="in", res=300)
 ggplot(data, aes(x=Region, y=`N_papers`, fill=Gender)) +
   geom_bar(stat="identity", position="stack", color=NA, width=0.5) +
   scale_fill_manual(values=c("#39578c", "orange")) +
-  labs(title="Number of Publications per State by Gender",
+  labs(title=" ",
        x=" ", y="Number of Publications",
        fill="SEX") +
   theme_bw() +
@@ -114,7 +116,7 @@ ggplot(data, aes(x=Region, y=`N_papers`, fill=Gender)) +
         axis.line.x = element_line(),
         axis.line.y = element_line(),
         axis.text.x = element_text(size = 14))
-
+dev.off()
 
 ################################### MAp ################################
 
