@@ -127,7 +127,7 @@ approved_data = data.frame(State = c("AM", "BA", "CE", "DF", "MG", "PA", "PB", "
 
 # Join the data with the map
 brasil_map_data = left_join(brazil_map, approved_data, by = c("SIGLA" = "State")) |> 
-  dplyr::rename("INCTs approved" = Result)
+  dplyr::rename("Proportion of accepted proposals" = Result)
 
 ## Write as shapefile
 sf::st_write(brasil_map_data, "data/shp/brasil_map_data.shp")
@@ -140,12 +140,36 @@ tm_shape(brasil_map_data) +
   tm_layout(frame = FALSE)
 
 
-##### Test random 1
+##### Test bolinhas
 
 tm_shape(brasil_map_data) +
-  tm_polygons("Result", palette = "Blues", style = "quantile", border.col = "black") +
-  tm_dots(size = "Result", col = "red", border.col = NA, alpha = 0.5, shape = 21) +
+  tm_polygons("INCTs approved", palette = "Blues", style = "quantile", border.col = "black") +
+  tm_dots(size = "INCTs approved", col = "red", border.col = NA, alpha = 0.5, shape = 21) +
   tm_layout(title = "Results by State", legend.title.size = 1.5, legend.text.size = 1.2)
+
+
+tm_shape(brasil_map_data) +
+  tm_polygons() +
+  tm_dots(size = "Proportional number of accepted proposals", col = "red", border.col = NA, alpha = 0.5, shape = 21) +
+  tm_layout(title = " ", legend.title.size = 1.5, legend.text.size = 1.2)
+
+
+
+# Create the map
+png(file="Map_v3.png",
+    width=12, height=10, units="in", res=300)
+tm_shape(brasil_map_data) +
+  tm_polygons(border.col = "black", lwd = 2.0, lty = "solid") +
+    tm_dots(size = "Proportion of accepted proposals", col = "red", border.col = NA, alpha = 0.5, shape = 21) +
+  #tm_text(" ", size = 0.8, col = "black", root = TRUE, case = "upper", just = "top", xmod= 0.7, ymod = 0) +
+  tm_layout(title = " ", legend.title.size = 1.5, legend.text.size = 1.2)
+dev.off()
+
+tm_shape(brasil_map_data) +
+  tm_polygons() +
+  tm_dots(size = "Proportional number of accepted proposals", col = "red", border.col = NA, alpha = 0.5, shape = 21) +
+  tm_labels(text = "SIGLA", size = 0.8, col = "black", bg.color = "white", bg.alpha = 0.8, align = c("left", "bottom")) +
+  tm_layout(title = " ", legend.title.size = 1.5, legend.text.size = 1.2)
 
 
 ############# ALL
